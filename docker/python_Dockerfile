@@ -1,0 +1,23 @@
+# Use a base image with Python pre-installed
+FROM python:3.9
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the requirements file to the container
+COPY requirements.txt .
+
+# Create and activate a virtual environment
+RUN python -m venv venv
+ENV PATH="/app/venv/bin:$PATH"
+
+# Upgrade pip and install the required dependencies
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the Python files to the container
+COPY file1.py .
+COPY file2.py .
+
+# Run the Python files
+CMD ["python", "file1.py"]
